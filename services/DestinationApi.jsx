@@ -1,12 +1,12 @@
 
-const BASE_URL = "";
-const API_EP = "";
+const BASE_URL = "http://192.168.43.166:8081/";
+const API_EP = "destinos";
 
 class DestinationApi {
     
     list() {
         return( 
-            fetch(`${BASE_URL}/${API_EP}`)
+            fetch(`${BASE_URL}${API_EP}`)
                 .then(res => {
                     if(!res.ok && res.status !== 404) throw new Error("Erro ao tentar realizar a requisição");
                     if(res.status === 404) throw new Error("Não foi possível encontrar a rota solicitada");

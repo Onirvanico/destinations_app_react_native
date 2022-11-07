@@ -4,7 +4,7 @@ function DestinationItem(props) {
 
     return(
        <View style={[styles.viewStyle]}>
-           <Text style={[styles.textStyle]}>{props.title}</Text>
+           <Text style={[styles.textStyle, styles.titleStyle]}>{props.title}</Text>
            
            <Text style={[styles.textStyle]}>{props.description}</Text>
        </View>
@@ -23,6 +23,10 @@ const styles = StyleSheet.create({
     textStyle: {
         color: "white",
         fontSize: 20
+    },
+    titleStyle: {
+        marginBottom: 10,
+        fontWeight: "700"
     }
 })
 export default DestinationItem;
