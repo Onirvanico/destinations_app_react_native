@@ -35,7 +35,7 @@ function DestinationList({ navigation }) {
             <FlatList style={styles.flatListStyle}
                 data={destinations}
                 renderItem={({item}) => <DestinationItem title={item.local} description={item.descricao} />}
-                keyExtractor={item => item.title}
+                keyExtractor={item => item.id}
             />
             <FAB onPress={() => navigation.navigate("Criar destino")}></FAB>
             <StatusBar style="auto" />
