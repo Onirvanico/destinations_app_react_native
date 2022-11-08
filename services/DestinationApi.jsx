@@ -1,6 +1,6 @@
 
-const BASE_URL = "http://192.168.43.166:8081/";
-const API_EP = "destinos";
+const BASE_URL = "http://192.168.1.72:45456/api/";
+const API_EP = "Destino";
 
 class DestinationApi {
     
@@ -8,7 +8,7 @@ class DestinationApi {
         return( 
             fetch(`${BASE_URL}${API_EP}`)
                 .then(res => {
-                    if(!res.ok && res.status !== 404) throw new Error("Erro ao tentar realizar a requisição");
+                    if(!res.ok && res.status !== 404) throw new Error(`Erro ao tentar realizar a requisição: ${res.status}`);
                     if(res.status === 404) throw new Error("Não foi possível encontrar a rota solicitada");
                     return res.json();
                 })
@@ -20,13 +20,16 @@ class DestinationApi {
 
     save(destination) {
         return( 
-            fetch(`${BASE_URL}/${API_EP}`, {
+            fetch(`${BASE_URL}${API_EP}`, {
                 method: "POST",
-                headers: "Content-Type: application/json;charset=UTF-8",
+                headers: {
+                    'Accept': "application/json, text/plain, */*",
+                    'Content-Type': "application/json;charset=utf-8"
+                },
                 body: JSON.stringify(destination)
             })
                 .then(res => {
-                    if(!res.ok && res.status !== 404) throw new Error("Erro ao tentar salvar o destino");
+                    if(!res.ok && res.status !== 404) throw new Error(`Erro ao tentar salvar o destino: ${res.status}`);
                     if(res.status === 404) throw new Error("Não foi possível encontrar a rota solicitada");
                     return res.json();
                 })

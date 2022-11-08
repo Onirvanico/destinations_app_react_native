@@ -2,8 +2,10 @@
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import { StyleSheet, Text, View, ToastAndroid } from 'react-native';
 import { useState } from "react";
+import DestinationApi from '../services/DestinationApi';
+import Destino from '../domain/Destino';
 
-const CreateDestination = () => {
+const CreateDestination = ({ navigation }) => {
 
   const [inputTitle, setInputTitle] = useState("");
   const [inputDescription, setInputDescription] = useState("");
@@ -24,13 +26,26 @@ const CreateDestination = () => {
             clearButtonMode="always"
             value={inputDescription}
             onChangeText={setInputDescription} /> 
-            <TouchableOpacity style={styles.button} onPress={() => alert(`título: ${inputTitle} \ descrição: ${inputDescription}`)}> 
+            <TouchableOpacity style={styles.button} onPress={() => saveDestination(inputTitle, inputDescription, navigation)}> 
             <Text style={styles.buttonText}>Salvar</Text> 
             </TouchableOpacity> 
         </View>
         </View>
 
     );
+}
+
+function saveDestination(title, description, navigation) {
+  if(verifyFields(title, description)) {
+    const api = new DestinationApi();
+    let destino = new Destino(title, description);
+    api.save(destino);
+    navigation.navigate("Destinos");
+  }
+
+}
+function verifyFields(title, description) {
+    return title.length > 0 && description.length > 0;
 }
 
 const styles = StyleSheet.create({

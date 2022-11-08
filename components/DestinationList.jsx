@@ -1,27 +1,28 @@
 
+import { useFocusEffect } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, ToastAndroid, FlatList } from 'react-native';
 import DestinationApi from '../services/DestinationApi';
 import DestinationItem from './DestinationItem';
 import FAB from './FAB';
 
 function DestinationList({ navigation }) {
-    /* const destinations = [
-        { title: "Teste 1", description: "Description 1" },
-        { title: "Teste 2", description: "Description 2" },
-        { title: "Teste 3", description: "Description 3" },
-        { title: "Teste 4", description: "Description 1" },
-        { title: "Teste 5", description: "Description 2" },
-        { title: "Teste 6", description: "Description 3" },
-        { title: "Teste 7", description: "Description 1" },
-        { title: "Teste 8", description: "Description 2" },
-        { title: "Teste 9", description: "Description 3" },
-        { title: "Teste 10", description: "Description 3" }
-      ] */
+   
       const [destinations, setDestinations] = useState([]);
 
       const api = new DestinationApi();
+
+      useFocusEffect(
+        React.useCallback(()=> {
+          api.list()
+          .then(res => {
+            setDestinations(res);
+          });
+
+        }, [])
+      );
+
       useEffect(() => {
          api.list()
           .then(res => {
